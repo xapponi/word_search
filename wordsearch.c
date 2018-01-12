@@ -32,7 +32,7 @@ void draw_puzzle(void);
 //generates the puzzle
 void generate_puzzle(void);
 //2d character array which the puzzle is mapped into
-char PUZZLE[80][40];
+
 
 /*************Main Function*******************/
 int main(int argc, char* argv[]) {
@@ -42,6 +42,8 @@ int main(int argc, char* argv[]) {
 	int i;
 	//get the number of words
 	wordCount = readWords(wordlist, argv[1]);
+
+	char puzzle[1641];
 
 	//generate random number for orientation of word
 	srand(1);
@@ -53,11 +55,15 @@ int main(int argc, char* argv[]) {
 
 	for(i=0; i<1640;++i){
 		if(i%40==0){
-			printf("\n");
+			puzzle[i]='\n';
 		}
 		else{
-			printf(".");
+			puzzle[i]='.';
 		}
+	}
+
+	for(i=0; i<1640;++i){
+		printf("%c", puzzle[i]);
 	}
 }
 
@@ -101,36 +107,5 @@ void trimws(char* s) {
 	while (isspace(s[end])){
 		s[end] = 0;
 		end -=1;
-	}
-}
-
-//generates the puzzle
-void generate_puzzle(void){
-	int i = 0;
-	int j = 0;
-	for(i=0; i<80;++i){
-		for(j=0; j<40;++j){
-			//fills the puzzle in with random words
-			//PUZZLE[i][j]='A'+(rand()%26);
-			if(i<41){
-				PUZZLE[i][j] = '.';
-			}
-			else{
-				//fills the puzzle in with random words
-				PUZZLE[i][j]='A'+(rand()%26);
-			}
-		}
-	}
-}
-
-//draws the puzzle
-void draw_puzzle(void){
-	int i = 0;
-	int j = 0;
-	for(i=0; i<80;++i){
-		for(j=0; j<40;++j){
-			mvaddch(i,j,PUZZLE[i][j]);
-
-		}
 	}
 }
