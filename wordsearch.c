@@ -59,6 +59,19 @@ int main(int argc, char* argv[]) {
 			}
 		}
 	}
+	
+	int k; 
+	for(k=0; k<wordCount; ++k){
+		
+		i = rand()%41;
+		j = rand()%41;
+		puzzle[i][j] = wordlist[k][0];
+		for(i=0; i<41; ++i){
+			for(j=0; j<42; ++j){
+				
+			}
+		}
+	}
 
 	
 	//generate random start for word placement
