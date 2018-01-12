@@ -39,31 +39,49 @@ int main(int argc, char* argv[]) {
 	//initialize variables
 	char* wordlist[MAXWORDS];
 	int wordCount;
-	int i;
 	//get the number of words
 	wordCount = readWords(wordlist, argv[1]);
 
-	char puzzle[1641];
+	char puzzle[41][42];
 
 	//generate random number for orientation of word
 	srand(1);
-	int direction[100];
-	for (i = 0; i< wordCount; i++) {
-		direction[i] = rand()%(2);
-		printf("%d\n", direction[i]);
+	int i;
+	int j;
+	for(i=0; i<41; ++i){
+		for(j=0; j<42; ++j){
+			//put the '\n' in puzzle array
+			if(j==41){
+				puzzle[i][j]='\n';
+			}
+			else{
+				puzzle[i][j]='.';
+			}
+		}
 	}
 
-	for(i=0; i<1640;++i){
-		if(i%40==0){
-			puzzle[i]='\n';
-		}
-		else{
-			puzzle[i]='.';
-		}
-	}
+	
+	//generate random start for word placement
+	// int j;
+	// int start[100]; 
+	// int add_one =0;
+	// for(j=0; j<wordCount;++j){
+		// start[j] = rand()%(1641);
+		// for(i=0; i<strlen(wordlist[j]); ++i){
+			// if((puzzle[start[j]+strlen(wordlist[j])] % 40) <){
+				// puzzle[start[j]+add_one-strlen(wordlist[j])] = wordlist[j][i];
+			// }
+			// else{
+				// puzzle[start[j]+add_one] = wordlist[j][i];
+			// }
+			// ++add_one;
+		// }
+	// }
 
-	for(i=0; i<1640;++i){
-		printf("%c", puzzle[i]);
+	for(i=0; i<41; ++i){
+		for(j=0; j<42; ++j){
+			printf("%c", puzzle[i][j]);
+		}
 	}
 }
 
