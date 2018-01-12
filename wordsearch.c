@@ -42,7 +42,14 @@ int main(int argc, char* argv[]) {
 	int i;
 	//get the number of words
 	wordCount = readWords(wordlist, argv[1]);
-
+	for(i=0; i<1640;++i){
+		if(i%40==0){
+			printf("\n");
+		}
+		else{
+			printf(".");
+		}
+	}
 }
 
 /*************Other Functions*****************/
