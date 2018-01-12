@@ -42,59 +42,79 @@ int main(int argc, char* argv[]) {
 	//get the number of words
 	wordCount = readWords(wordlist, argv[1]);
 
-	char puzzle[41][42];
+	char puzzle[40][40];
 
 	//generate random number for orientation of word
 	srand(1);
 	int i;
 	int j;
-	for(i=0; i<41; ++i){
-		for(j=0; j<42; ++j){
+	for(i=0; i<40; ++i){
+		for(j=0; j<40; ++j){
 			//put the '\n' in puzzle array
-			if(j==41){
-				puzzle[i][j]='\n';
-			}
-			else{
-				puzzle[i][j]='.';
-			}
+
+			puzzle[i][j]='.';
+			
 		}
 	}
 	
 	int k; 
-	for(k=0; k<wordCount; ++k){
+	for(k=0; k<=wordCount; ++k){
 		
-		i = rand()%41;
-		j = rand()%41;
-		puzzle[i][j] = wordlist[k][0];
-		for(i=0; i<41; ++i){
-			for(j=0; j<42; ++j){
-				
+		//get a random x and y direction (not 0,0)
+			int xdir = 0;
+			int ydir = 0;
+			while(xdir==0&&ydir==0){
+				xdir = rand()%3-1;
+				ydir = rand()%3-1;
 			}
+			
+		
+		
+		int out_bounds = 1;
+		
+		while(out_bounds){
+			out_bounds = 0;
+			
+			i = rand()%40;
+			j = rand()%40;
+			
+			printf("%d, %d, %s, %d, %d\n", xdir, ydir, wordlist[k], i, j);
+			int ii = i; 
+			int jj = j;
+			//puzzle[i][j] = wordlist[k][0];
+			int letter;
+			for(letter=0; letter<strlen(wordlist[k]); ++letter){
+				printf("(%d,%d)",i, j);
+				if(j>=40||i<0||puzzle[i][j]!='.'){
+					out_bounds = 1;
+					j = j + xdir;
+					i = i + ydir;
+					printf("DEBUG");
+				}else{
+					j = j + xdir;
+					i = i + ydir;
+				}
+			}
+			printf("\n");
+			i = ii; 
+			j = jj;
+			if(out_bounds == 0){
+				for(letter=0; letter<strlen(wordlist[k]); ++letter){
+					puzzle[i][j]=wordlist[k][letter];
+					j = j + xdir;
+					i = i + ydir;
+				}
+			}
+			
 		}
 	}
 
-	
-	//generate random start for word placement
-	// int j;
-	// int start[100]; 
-	// int add_one =0;
-	// for(j=0; j<wordCount;++j){
-		// start[j] = rand()%(1641);
-		// for(i=0; i<strlen(wordlist[j]); ++i){
-			// if((puzzle[start[j]+strlen(wordlist[j])] % 40) <){
-				// puzzle[start[j]+add_one-strlen(wordlist[j])] = wordlist[j][i];
-			// }
-			// else{
-				// puzzle[start[j]+add_one] = wordlist[j][i];
-			// }
-			// ++add_one;
-		// }
-	// }
 
-	for(i=0; i<41; ++i){
-		for(j=0; j<42; ++j){
+	for(i=0; i<40; ++i){
+		for(j=0; j<40; ++j){
 			printf("%c", puzzle[i][j]);
 		}
+		printf("\n");
 	}
 }
 
