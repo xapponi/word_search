@@ -53,6 +53,7 @@ int main(int argc, char* argv[]) {
 	for(i=0; i<ROW; ++i){
 		for(j=0; j<COL; ++j){
 			//put the '\n' in puzzle array
+<<<<<<< HEAD
 
 			puzzle[i][j]='.';
 
@@ -62,6 +63,17 @@ int main(int argc, char* argv[]) {
 	int k;
 	for(k=0; k<=wordCount; ++k){
 
+=======
+
+			puzzle[i][j]='.';
+			
+		}
+	}
+	
+	int k; 
+	for(k=0; k<=wordCount; ++k){
+		
+>>>>>>> e2b9e4c309c7273be89a97a1b82da1fb0409f077
 		//get a random x and y direction (not 0,0)
 			int xdir = 0;
 			int ydir = 0;
@@ -69,6 +81,7 @@ int main(int argc, char* argv[]) {
 				xdir = rand()%3-1;
 				ydir = rand()%3-1;
 			}
+<<<<<<< HEAD
 
 
 
@@ -82,23 +95,51 @@ int main(int argc, char* argv[]) {
 
 			//printf("%d, %d, %s, %d, %d\n", xdir, ydir, wordlist[k], i, j);
 			int ii = i;
+=======
+			
+		
+		
+		int out_bounds = 1;
+		
+		while(out_bounds){
+			out_bounds = 0;
+			
+			i = rand()%ROW;
+			j = rand()%COL;
+			
+			printf("%d, %d, %s, %d, %d\n", xdir, ydir, wordlist[k], i, j);
+			int ii = i; 
+>>>>>>> e2b9e4c309c7273be89a97a1b82da1fb0409f077
 			int jj = j;
 			//puzzle[i][j] = wordlist[k][0];
 			int letter;
 			for(letter=0; letter<strlen(wordlist[k]); ++letter){
+<<<<<<< HEAD
 				//printf("(%d,%d)",i, j);
+=======
+				printf("(%d,%d)",i, j);
+>>>>>>> e2b9e4c309c7273be89a97a1b82da1fb0409f077
 				if(j>=COL||i<0||j<0||(puzzle[i][j]!='.'||puzzle[i][j]==wordlist[k][letter])){
 					out_bounds = 1;
 					j = j + xdir;
 					i = i + ydir;
+<<<<<<< HEAD
 					//printf("DEBUG");
+=======
+					printf("DEBUG");
+>>>>>>> e2b9e4c309c7273be89a97a1b82da1fb0409f077
 				}else{
 					j = j + xdir;
 					i = i + ydir;
 				}
 			}
+<<<<<<< HEAD
 			//printf("\n");
 			i = ii;
+=======
+			printf("\n");
+			i = ii; 
+>>>>>>> e2b9e4c309c7273be89a97a1b82da1fb0409f077
 			j = jj;
 			if(out_bounds == 0){
 				for(letter=0; letter<strlen(wordlist[k]); ++letter){
@@ -107,7 +148,11 @@ int main(int argc, char* argv[]) {
 					i = i + ydir;
 				}
 			}
+<<<<<<< HEAD
 
+=======
+			
+>>>>>>> e2b9e4c309c7273be89a97a1b82da1fb0409f077
 		}
 	}
 
