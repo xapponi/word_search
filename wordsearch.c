@@ -16,6 +16,8 @@ Pseudo Code
 
 #define MAXWORDS 100
 #define WORDLEN 20
+#define ROW 15
+#define COL 15
 
 /*************Function Prototypes**************/
 //read words from the file
@@ -39,31 +41,82 @@ int main(int argc, char* argv[]) {
 	//initialize variables
 	char* wordlist[MAXWORDS];
 	int wordCount;
-	int i;
 	//get the number of words
 	wordCount = readWords(wordlist, argv[1]);
 
-	char puzzle[1641];
+	char puzzle[ROW][COL];
 
 	//generate random number for orientation of word
-	srand(1);
-	int direction[100];
-	for (i = 0; i< wordCount; i++) {
-		direction[i] = rand()%(2);
-		printf("%d\n", direction[i]);
-	}
+	srand(4);
+	int i;
+	int j;
+	for(i=0; i<ROW; ++i){
+		for(j=0; j<COL; ++j){
+			//put the '\n' in puzzle array
 
-	for(i=0; i<1640;++i){
-		if(i%40==0){
-			puzzle[i]='\n';
-		}
-		else{
-			puzzle[i]='.';
+			puzzle[i][j]='.';
+
 		}
 	}
 
-	for(i=0; i<1640;++i){
-		printf("%c", puzzle[i]);
+	int k;
+	for(k=0; k<=wordCount; ++k){
+
+		//get a random x and y direction (not 0,0)
+			int xdir = 0;
+			int ydir = 0;
+			while(xdir==0&&ydir==0){
+				xdir = rand()%3-1;
+				ydir = rand()%3-1;
+			}
+
+
+
+		int out_bounds = 1;
+
+		while(out_bounds){
+			out_bounds = 0;
+
+			i = rand()%ROW;
+			j = rand()%COL;
+
+			//printf("%d, %d, %s, %d, %d\n", xdir, ydir, wordlist[k], i, j);
+			int ii = i;
+			int jj = j;
+			//puzzle[i][j] = wordlist[k][0];
+			int letter;
+			for(letter=0; letter<strlen(wordlist[k]); ++letter){
+				//printf("(%d,%d)",i, j);
+				if(j>=COL||i<0||j<0||(puzzle[i][j]!='.'||puzzle[i][j]==wordlist[k][letter])){
+					out_bounds = 1;
+					j = j + xdir;
+					i = i + ydir;
+					//printf("DEBUG");
+				}else{
+					j = j + xdir;
+					i = i + ydir;
+				}
+			}
+			//printf("\n");
+			i = ii;
+			j = jj;
+			if(out_bounds == 0){
+				for(letter=0; letter<strlen(wordlist[k]); ++letter){
+					puzzle[i][j]=wordlist[k][letter];
+					j = j + xdir;
+					i = i + ydir;
+				}
+			}
+
+		}
+	}
+
+
+	for(i=0; i<ROW; ++i){
+		for(j=0; j<COL; ++j){
+			printf("%c", puzzle[i][j]);
+		}
+		printf("\n");
 	}
 }
 
