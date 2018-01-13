@@ -16,24 +16,15 @@ Pseudo Code
 
 #define MAXWORDS 100
 #define WORDLEN 20
-#define ROW 15
-#define COL 15
+#define ROW 3
+#define COL 3
 
 /*************Function Prototypes**************/
 //read words from the file
 int readWords(char* wl[MAXWORDS], char* filename);
-//get the row of an index
-int row_of(int index);
-int col_of(int index);
-//get the index of a location
-int index_of(int row, int col);
-//trim right side of string
+
 void trimws(char* s);
-//draws the puzzle
-void draw_puzzle(void);
-//generates the puzzle
-void generate_puzzle(void);
-//2d character array which the puzzle is mapped into
+
 
 
 /*************Main Function*******************/
@@ -47,7 +38,7 @@ int main(int argc, char* argv[]) {
 	char puzzle[ROW][COL];
 
 	//generate random number for orientation of word
-	srand(4);
+	srand(69);
 	int i;
 	int j;
 	for(i=0; i<ROW; ++i){
@@ -134,24 +125,6 @@ int readWords(char* wl[MAXWORDS], char* filename) {
 
 	fclose(inFile);
 	return i-1;
-}
-
-//int row_of(int index);
-int row_of(int index){
-	return index / 40;
-}
-
-//int col_of(int index);
-int col_of(int index){
-	return (index % 40);
-}
-
-//int index_of(int row, int col);
-int index_of(int row, int col){
-	int index = 0;
-	index += row * 5;
-	index += col;
-	return index;
 }
 
 // trim the right side of each string
