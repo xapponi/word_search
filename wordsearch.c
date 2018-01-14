@@ -16,8 +16,8 @@ Pseudo Code
 
 #define MAXWORDS 100
 #define WORDLEN 20
-#define ROW 3
-#define COL 3
+#define ROW 12
+#define COL 12
 
 /*************Function Prototypes**************/
 //read words from the file
@@ -37,8 +37,8 @@ int main(int argc, char* argv[]) {
 
 	char puzzle[ROW][COL];
 
-	//generate random number for orientation of word
-	srand(69);
+	int seed = 0;
+	srand(seed);
 	int i;
 	int j;
 	for(i=0; i<ROW; ++i){
@@ -50,39 +50,40 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
+	int num_tries;
 	int k;
 	for(k=0; k<=wordCount; ++k){
-
-		//get a random x and y direction (not 0,0)
+		int out_bounds = 1;
+		while(out_bounds){
+			out_bounds = 0;
+			//get a random x and y direction (not 0,0)
 			int xdir = 0;
 			int ydir = 0;
 			while(xdir==0&&ydir==0){
 				xdir = rand()%3-1;
 				ydir = rand()%3-1;
 			}
-
-
-
-		int out_bounds = 1;
-
-		while(out_bounds){
-			out_bounds = 0;
-
-			i = rand()%ROW;
-			j = rand()%COL;
-
+			i = rand()%(ROW);
+			j = rand()%(COL);
 			//printf("%d, %d, %s, %d, %d\n", xdir, ydir, wordlist[k], i, j);
 			int ii = i;
 			int jj = j;
 			//puzzle[i][j] = wordlist[k][0];
 			int letter;
 			for(letter=0; letter<strlen(wordlist[k]); ++letter){
+				num_tries = 0;
 				//printf("(%d,%d)",i, j);
-				if(j>=COL||i<0||j<0||(puzzle[i][j]!='.'||puzzle[i][j]==wordlist[k][letter])){
-					out_bounds = 1;
-					j = j + xdir;
-					i = i + ydir;
-					//printf("DEBUG");
+				if(puzzle[i][j]!=wordlist[k][letter]){
+					if(j>=COL||i<0||j<0||puzzle[i][j]!='.'){
+						printf("1111:%d, %d, %s: %c, %c\n",i,j, wordlist[k], puzzle[i][j], wordlist[k][letter]);
+						out_bounds = 1;
+						j = j + xdir;
+						i = i + ydir;
+						//printf("DEBUG");
+					}else{
+						j = j + xdir;
+						i = i + ydir;
+					}
 				}else{
 					j = j + xdir;
 					i = i + ydir;
