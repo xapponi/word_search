@@ -43,10 +43,7 @@ int main(int argc, char* argv[]) {
 	int j;
 	for(i=0; i<ROW; ++i){
 		for(j=0; j<COL; ++j){
-			//put the '\n' in puzzle array
-
 			puzzle[i][j]='.';
-
 		}
 	}
 
@@ -75,7 +72,7 @@ int main(int argc, char* argv[]) {
 				//printf("(%d,%d)",i, j);
 				if(puzzle[i][j]!=wordlist[k][letter]){
 					if(j>=COL||i<0||j<0||puzzle[i][j]!='.'){
-						printf("1111:%d, %d, %s: %c, %c\n",i,j, wordlist[k], puzzle[i][j], wordlist[k][letter]);
+						//printf("1111:%d, %d, %s: %c, %c\n",i,j, wordlist[k], puzzle[i][j], wordlist[k][letter]);
 						out_bounds = 1;
 						j = j + xdir;
 						i = i + ydir;
@@ -106,7 +103,10 @@ int main(int argc, char* argv[]) {
 
 	for(i=0; i<ROW; ++i){
 		for(j=0; j<COL; ++j){
-			printf("%c", puzzle[i][j]);
+			if(puzzle[i][j]=='.'&&argv[2]!=0){
+				puzzle[i][j]=('A'+rand()%(26));
+			}
+			printf("%c ", puzzle[i][j]);
 		}
 		printf("\n");
 	}
